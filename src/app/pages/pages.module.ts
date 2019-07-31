@@ -21,6 +21,7 @@ import { GraficoDonutComponent } from '../components/grafico-donut/grafico-donut
 
 //temporal
 import { IncrementadorComponent } from '../components/incrementador/incrementador.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 
 
@@ -31,7 +32,8 @@ import { IncrementadorComponent } from '../components/incrementador/incrementado
     ProgressComponent,
     Graficas1Component,
     IncrementadorComponent,
-    GraficoDonutComponent
+    GraficoDonutComponent,
+    AccountSettingsComponent
   ],
   imports: [
     SharedModule,
