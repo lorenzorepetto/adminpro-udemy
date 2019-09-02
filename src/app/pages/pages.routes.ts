@@ -15,22 +15,24 @@ import { MedicoComponent } from './medicos/medico.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
 
 
-import { LoginGuard, AdminGuard } from '../services/service.index';
+import { LoginGuard, AdminGuard, VerificaTokenGuard } from '../services/service.index';
 
 const PAGES_ROUTES: Routes = [
-  {
-    path: '',
-    component: PagesComponent,
-    canActivate: [ LoginGuard ],
-    children: [
-      { path: 'dashboard', component: DashboardComponent, data: { titulo: 'Dashboard' } },
-      { path: 'progress', component: ProgressComponent, data: { titulo: 'Progress' } },
-      { path: 'graficas1', component: Graficas1Component, data: { titulo: 'Gráficas' } },
-      { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas' } },
-      { path: 'rxjs', component: RxjsComponent, data: { titulo: 'RxJs' } },
-      { path: 'account-settings', component: AccountSettingsComponent, data: { titulo: 'Account Settings' } },
-      { path: 'perfil', component: ProfileComponent, data: { titulo: 'Perfil de usuario' } },
-      { path: 'busqueda/:termino', component: BusquedaComponent, data: { titulo: 'Buscador' } },
+ 
+    { 
+      path: 'dashboard', 
+      component: DashboardComponent,
+      canActivate: [ VerificaTokenGuard ], 
+      data: { titulo: 'Dashboard' } 
+      
+    },
+    { path: 'progress', component: ProgressComponent, data: { titulo: 'Progress' } },
+    { path: 'graficas1', component: Graficas1Component, data: { titulo: 'Gráficas' } },
+    { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas' } },
+    { path: 'rxjs', component: RxjsComponent, data: { titulo: 'RxJs' } },
+    { path: 'account-settings', component: AccountSettingsComponent, data: { titulo: 'Account Settings' } },
+    { path: 'perfil', component: ProfileComponent, data: { titulo: 'Perfil de usuario' } },
+    { path: 'busqueda/:termino', component: BusquedaComponent, data: { titulo: 'Buscador' } },
       
 
       //Mantenimientos
@@ -44,8 +46,8 @@ const PAGES_ROUTES: Routes = [
       { path: 'medico/:id', component: MedicoComponent, data: { titulo: 'Actualizar médico' } },
       
       { path: '', pathMatch: 'full', redirectTo: '/login' }
-    ]
-  }
+    
+  
 ];
 
 export const PAGES_ROUTING = RouterModule.forChild(PAGES_ROUTES);

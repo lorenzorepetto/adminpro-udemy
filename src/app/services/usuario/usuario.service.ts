@@ -11,7 +11,7 @@ import { URL_SERVICIOS } from '../../config/config';
 //modelos
 import { Usuario } from 'src/app/models/usuario.model';
 import { SubirArchivoService } from '../subirArchivo/subir-archivo.service';
-import { Observable } from 'rxjs';
+import { Observable, pipe } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +29,26 @@ export class UsuarioService {
     this.cargarStorage();
   }
 
+
+  renuevaToken(){
+    
+    let url = `${ URL_SERVICIOS }/login/renuevatoken?token=${ this.token }`;
+
+    return this.http.get( url )
+                  .pipe(
+                    map( (resp: any) => {
+                      
+                      this.token = resp.token;
+                      localStorage.setItem('token', this.token);
+                      return true;
+                    }),
+                    catchError( err => {
+                      this.router.navigate(['/login']);
+                      Swal.fire('No se pudo renovar token', 'No fue posible la operación', 'error');
+                      return throwError(err);
+                    })
+                  )
+  }
 // =================================================================
 //                          Logout
 // =================================================================
